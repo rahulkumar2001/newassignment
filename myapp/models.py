@@ -1,18 +1,23 @@
+from unicodedata import name
 from django.db import models
+from django.contrib.auth.models import User
 
+# Create your models here.
 import email
-from django.db import models
 
+'''
+note: this is a donor table , we are saving user all info in db.
+'''
 class Donor(models.Model):
-    name = models.CharField(max_length=50)
-    email = models.CharField(max_length=50)
-    phone = models.CharField(max_length=50)
-    address = models.CharField(max_length=50)
-    password=models.CharField(max_length=50,default="")
-    
-    adhaar_card = models.CharField(max_length=50,default="")
-    pan_card = models.CharField(max_length=50,default="")
-    upline_id = models.CharField(max_length=50)
-
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=50, default="")
+    email = models.CharField(max_length=255, unique=True, default="")
+    phone = models.CharField(max_length=50, unique=True, default="")
+    address = models.CharField(max_length=255,default="")
+    adhar_card = models.CharField(max_length=255, unique=True, default="")
+    pan_card = models.CharField(max_length=255, unique=True, default="")
+    upline_id = models.CharField(max_length=255, default="")
+    payment_status = models.CharField(max_length=255, default=False)
+    user_plan = models.CharField(max_length=255, default="")
     def __str__(self):
         return self.name

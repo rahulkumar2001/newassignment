@@ -15,22 +15,21 @@ def index(request):
   return HttpResponse("Hello test api")
 
 
-class Donordata(APIView):
+class UserRegistraion(APIView):
   def post(self, request):
     # try:
     name = request.data['name']
     email = request.data['email']
-    phone = request.data['phone']
+    mobile = request.data['mobile']
     address = request.data['address']
     adhaar_card=request.data['adhaar_card']
     pan_card=request.data['pan_card']
 
-    upline_id = request.data['upline_id']
     random_num=random.randint(1,6)
     add_str="bbwf00"
     
     
-    data = Donor.objects.create(name=name, email=email,phone=phone,address=address, upline_id=upline_id,password=random_num,adhaar_card=adhaar_card,pan_card=pan_card)
+    data = Donor.objects.create(name=name, email=email,mobile=mobile,address=address, upline_id=upline_id,password=random_num,adhaar_card=adhaar_card,pan_card=pan_card)
     data.save()
     return Response({"status": True, "message": "data created successfully"})
   # except:
